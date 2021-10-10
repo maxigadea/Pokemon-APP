@@ -32,7 +32,7 @@ router.get("/", async(req, res, next) => {
                             type: p.dataValues.types.map( p => p.dataValues.name)
                          })
                      })
-                 res.status(200).send(response);
+                 res.status(200).send([response]);
             } else {
                 try {
                     const pokemonApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
@@ -48,7 +48,7 @@ router.get("/", async(req, res, next) => {
                         weight: pokemonApi.data.weight,
                         height: pokemonApi.data.height,
                     }
-                    return res.status(200).send(response);
+                    return res.status(200).send([response]);
                 } catch (error) {
                    next(res.json({message: "Pokemon not found" })) 
                 }

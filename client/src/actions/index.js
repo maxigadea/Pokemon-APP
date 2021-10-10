@@ -10,6 +10,20 @@ export function getPokemons() {
     }
 };
 
+export function getNamePokemons(name){
+    return async function(dispatch) {
+        try {   
+            var json = await axios.get(`http://localhost:3001/pokemons?name=${name}`)
+            return dispatch({
+                type: 'GET_NAME_POKEMONS',
+                payload: json.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+};
+
 export function filterPokemonsByType(payload) {
     return {
         type: 'FILTER_BY_TYPE',

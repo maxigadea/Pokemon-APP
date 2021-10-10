@@ -5,6 +5,7 @@ import { getPokemons, filterPokemonsByType, filterCreated, orderByName, orderByA
 import {Link} from 'react-router-dom';
 import Card from './Card';
 import Paginado from './Paginado';
+import SearchBar from './SearchBar';
 import styled from 'styled-components';
 
 const Home = () => {
@@ -42,13 +43,14 @@ const Home = () => {
     function handleSort(e) {
         e.preventDefault();
         dispatch(orderByName(e.target.value))
-        setOrden(`Order ${e.target.value}`)
+        setCurrentPage(1);
+        setOrden(`order ${e.target.value}`)
     };
 
     function handleSortAttack(e) {
         e.preventDefault();
         dispatch(orderByAttack(e.target.value))
-        setOrden(`Order ${e.target.value}`)
+        setOrden(`order ${e.target.value}`)
     };
 
 
@@ -96,6 +98,7 @@ const Home = () => {
                     <option value='api'>Existing</option>
                  </select>
             </div>
+            <SearchBar />
             <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={allPokemons.length} paginado={paginado} />
             {currentPokemons?.map(e => {
                     return (
