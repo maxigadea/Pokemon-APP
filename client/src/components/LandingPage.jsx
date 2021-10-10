@@ -14,10 +14,13 @@ export default function LandingPage() {
 };
 
 const LandingDiv = styled.div`
-    
-
+    background-image: url('https://images4.alphacoders.com/641/641968.jpg');    
+    margin-top: -16px;
+    height: 100vh;
+    overflow: hidden;
+    background-repeat: no-repeat;
 `;      
-const Title = styled.div`
+const Title = styled.title`
     display: flex;
     flex-direction: column;
     font-family: 'Montserrat', sans-serif;
@@ -34,7 +37,7 @@ const ButtonLanding = styled.button`
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
     width: 80px;
-    margin-top: 420px;
+    margin-top: 400px;
     padding: 8px;
     color: #D98F21;
     &:hover {
