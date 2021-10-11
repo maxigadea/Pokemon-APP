@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import Card from './Card';
 import Paginado from './Paginado';
 import SearchBar from './SearchBar';
+import Loader from './Loader';
 
 const Home = () => {
     const allPokemons = useSelector((state) => state.pokemons);
@@ -55,7 +56,8 @@ const Home = () => {
 
     return (
         <div>
-            <Link to='/Pokemon'> New Pokemon </Link>
+            {allPokemons.length <= 0 ? <Loader /> :
+            <div><Link to='/Pokemon'> New Pokemon </Link>
             <h1>Find Your Pokemon</h1>
             <button onClick={e => handleClick(e)}>Reload Pokemons</button>
             <div>
@@ -107,7 +109,7 @@ const Home = () => {
                     )
                 })    
             }
-            <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={allPokemons.length} paginado={paginado} />
+            <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={allPokemons.length} paginado={paginado} /></div> }
         </div>
      )
 };
