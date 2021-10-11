@@ -6,7 +6,6 @@ import {Link} from 'react-router-dom';
 import Card from './Card';
 import Paginado from './Paginado';
 import SearchBar from './SearchBar';
-import styled from 'styled-components';
 
 const Home = () => {
     const allPokemons = useSelector((state) => state.pokemons);
@@ -55,7 +54,7 @@ const Home = () => {
 
 
     return (
-        <ContainerDiv>
+        <div>
             <Link to='/Pokemon'> New Pokemon </Link>
             <h1>Find Your Pokemon</h1>
             <button onClick={e => handleClick(e)}>Reload Pokemons</button>
@@ -109,12 +108,10 @@ const Home = () => {
                 })    
             }
             <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={allPokemons.length} paginado={paginado} />
-        </ContainerDiv>
+        </div>
      )
 };
 
-const ContainerDiv = styled.div`
-    background-color: #D98F21; 
-`;      
+   
 
 export default Home;

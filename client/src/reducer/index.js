@@ -2,7 +2,8 @@
 
 const initialState = {
     pokemons: [],
-    pokemonsAll: []
+    pokemonsAll: [],
+    type: []
 }
 
 function rootReducer(state=initialState, action) {
@@ -18,12 +19,27 @@ function rootReducer(state=initialState, action) {
                 ...state,
                 pokemons: action.payload
             }
-        case 'FILTER_BY_TYPE':
-            const pokemonsAll = state.pokemonsAll;
-            const typeFiltered = action.payload === 'All' ? pokemonsAll : pokemonsAll.filter(el => el.type.includes(action.payload))
+        case 'POST_POKEMON':
             return {
                 ...state,
-                pokemons: typeFiltered,
+            }
+        case 'GET_TYPES':
+            return {
+                ...state,
+                type: action.payload
+            }
+        case 'FILTER_BY_TYPE':
+            const pokemonsAll = state.pokemonsAll;
+            console.log(pokemonsAll)
+            const pokemonsApi = pokemonsAll.filter(e => e.type);
+            const pokemonsDb = pokemonsAll.filter(e => e.types);
+            const typeFiltered1 = action.payload === 'All' ? pokemonsApi : pokemonsApi.filter(el => el.type[0] === action.payload || el.type[1] === action.payload)
+            const typeFiltered2 = action.payload === 'All' ? pokemonsDb : pokemonsDb.filter(el => el.types[0].name === action.payload || el.types[1].name === action.payload)
+            const typeFiltered = typeFiltered1.concat(typeFiltered2);
+            
+            return {
+                ...state,
+                pokemons: typeFiltered
             }
         case 'FILTER_CREATED':
             const createdFilter = action.payload === 'created'? state.pokemonsAll.filter(el => el.createdInDb) : state.pokemonsAll.filter(el => !el.createdInDb)

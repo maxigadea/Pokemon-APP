@@ -1,9 +1,9 @@
 const express = require('express')
 const {Router} = require('express');
 const  axios  = require('axios');
-const { Pokemon, Types} = require('../db');
+const { Pokemon, Type} = require('../db');
 const { v4: uuidv4 } = require('uuid');
-const types = require('../models/types');
+
 
 
 
@@ -16,7 +16,7 @@ router.get("/", async(req, res, next) => {
     //Verifico si me enviaron algo por query
     if(name) {
         try {
-            let pokemonDB = await Pokemon.findAll({ where: {name: name}, include: Types })
+            let pokemonDB = await Pokemon.findAll({ where: {name: name}, include: Type })
             if(pokemonDB != 0) {
                      let response = pokemonDB.map(p => {
                          return ({
@@ -61,7 +61,7 @@ router.get("/", async(req, res, next) => {
     // No me enviaron nada por query //
     try {
         //Traigo los de la DB
-        let pokemonesDB = await Pokemon.findAll( {include: Types} )
+        let pokemonesDB = await Pokemon.findAll( {include: Type} )
         if(pokemonesDB) {
             pokemonesDB.map(p => {
                 return {
@@ -98,7 +98,7 @@ router.get('/:id', async(req, res, next) => {
     const {id} = req.params;
     if(id.length > 4 ) {
         try {
-            const pokemonDB = await Pokemon.findOne({where: {id:id}, include: Types});
+            const pokemonDB = await Pokemon.findOne({where: {id:id}, include: Type});
             const { name, hp, attack, defense, speed, weight, height, image} = pokemonDB;
             const response = {
                 name,
@@ -151,10 +151,10 @@ router.post('/', async(req, res, next) => {
             height,
             image
         })
-         let typesDB = await Types.findAll({
+         let typesDB = await Type.findAll({
              where: {name: type}
          })
-         newPokemon.addTypes(typesDB)
+         newPokemon.addType(typesDB)
          res.send(newPokemon)
     } catch (error) {
         next(error)
