@@ -7,6 +7,7 @@ import Card from './Card';
 import Paginado from './Paginado';
 import SearchBar from './SearchBar';
 import Loader from './Loader';
+import styled from 'styled-components';
 
 const Home = () => {
     const allPokemons = useSelector((state) => state.pokemons);
@@ -30,6 +31,7 @@ const Home = () => {
     function handleClick(e) {
         e.preventDefault();
         dispatch(getPokemons());
+        
     };
 
     function handleFilterType(e) {
@@ -57,21 +59,24 @@ const Home = () => {
     return (
         <div>
             {allPokemons.length <= 0 ? <Loader /> :
-            <div><Link to='/Pokemon'> New Pokemon </Link>
-            <h1>Find Your Pokemon</h1>
-            <button onClick={e => handleClick(e)}>Reload Pokemons</button>
             <div>
-            <select onChange={e => handleSort(e)}>
+                <ContainerDiv>
+                <h1>Find Your Pokemon!</h1>
+                <Link to='/Pokemon'> <Button>Create your Pokemon</Button></Link>
+                <Button onClick={e => handleClick(e)}>Reload Pokemons</Button>
+                </ContainerDiv>
+            <div>
+            <Select onChange={e => handleSort(e)}>
                     <option>Order by Name:</option>
                     <option value='asc'>A-Z</option>
                     <option value='desc'>Z-A</option>
-                 </select>
-                 <select onChange={e => handleSortAttack(e)}>
+                 </Select>
+                 <Select onChange={e => handleSortAttack(e)}>
                     <option>Order by Attack:</option>
                     <option value='more'>More Strong</option>
                     <option value='less'>Less Strong</option>
-                 </select>
-                 <select onChange={e => handleFilterType(e)}>
+                 </Select>
+                 <Select onChange={e => handleFilterType(e)}>
                     <option value='All'>All</option>
                     <option value='normal'>Normal</option>
                     <option value='fighting'>Fighting</option>
@@ -92,18 +97,18 @@ const Home = () => {
                     <option value='fairy'>Fairy</option>
                     <option value='unknown'>Unknown</option>
                     <option value='shadow'>Shadow</option>
-                 </select>
-                <select onChange={e => handleFilterCreated(e)}>
+                 </Select>
+                <Select onChange={e => handleFilterCreated(e)}>
                     <option value='All'>All</option>
                     <option value='created'>Created</option>
                     <option value='api'>Existing</option>
-                 </select>
+                 </Select>
             </div>
             <SearchBar />
             <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={allPokemons.length} paginado={paginado} />
             {currentPokemons?.map(e => {
                     return (
-                    <Link to= {'/home' + e.id}>
+                    <Link to= {'/pokemon' + e.id}>
                         <Card name={e.name} img={e.image} type={e.type} key={e.id}/>
                     </Link>
                     )
@@ -114,6 +119,34 @@ const Home = () => {
      )
 };
 
-   
+const ContainerDiv = styled.div`
+    margin:14px;
+`;      
+
+const Select = styled.select`
+    position: relative;
+    height: 22px;
+    background-color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+`;      
+
+const Button = styled.button`
+    background-color: #2426257f;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    border-radius: 18px;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    &:hover {
+        background: #2426252f; 
+        color: black;
+    }
+    
+`;  
 
 export default Home;
