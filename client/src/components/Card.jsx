@@ -5,7 +5,7 @@ const Card = ({ img, name, type}) => {
     return (
         <PokeDiv>
             <InfoDiv>
-            <h3>{name}</h3>
+            <h2>{name}</h2>
             <h5>{type}</h5>
             </InfoDiv>
             <ImgDiv>   

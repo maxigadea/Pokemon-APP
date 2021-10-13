@@ -31,6 +31,7 @@ const Home = () => {
     function handleClick(e) {
         e.preventDefault();
         dispatch(getPokemons());
+        alert('Recharging pokemons, please wait')
         
     };
 
@@ -54,8 +55,6 @@ const Home = () => {
         dispatch(orderByAttack(e.target.value))
         setOrden(`order ${e.target.value}`)
     };
-
-
     return (
         <div>
             {allPokemons.length <= 0 ? <Loader /> :
@@ -108,8 +107,8 @@ const Home = () => {
             <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={allPokemons.length} paginado={paginado} />
             {currentPokemons?.map(e => {
                     return (
-                    <Link to= {'/pokemon' + e.id}>
-                        <Card name={e.name} img={e.image} type={e.type} key={e.id}/>
+                    <Link to= {'/pokemon/' + e.id}>
+                        <Card name={e.name} img={e.image} type={!e.createdInDb? e.type + '  ': e.types.map(e => e.name) + ' '} key={e.id}/>
                     </Link>
                     )
                 })    

@@ -3,6 +3,7 @@
 const initialState = {
     pokemons: [],
     pokemonsAll: [],
+    pokemonsDetail: [],
     type: []
 }
 
@@ -91,6 +92,11 @@ function rootReducer(state=initialState, action) {
                 ...state,
                 pokemons: orderArrayAttack
             }
+            case 'GET_DETAIL':
+                return {
+                    ...state,
+                    pokemonsDetail: action.payload
+                }
         default: return state;
     }
 }

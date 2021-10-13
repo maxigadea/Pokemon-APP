@@ -13,6 +13,7 @@ router.use(express.json())
 
 router.get("/", async(req, res, next) => {
     const { name } = req.query;
+    console.log(name)
     //Verifico si me enviaron algo por query
     if(name) {
         try {
@@ -32,7 +33,7 @@ router.get("/", async(req, res, next) => {
                             type: p.dataValues.types.map( p => p.dataValues.name)
                          })
                      })
-                 res.status(200).send([response]);
+                 res.status(200).send(response);
             } else {
                 try {
                     const pokemonApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
@@ -96,19 +97,20 @@ router.get("/", async(req, res, next) => {
 
 router.get('/:id', async(req, res, next) => {
     const {id} = req.params;
-    if(id.length > 4 ) {
+    if(id.length > 10 ) {
         try {
-            const pokemonDB = await Pokemon.findOne({where: {id:id}, include: Type});
-            const { name, hp, attack, defense, speed, weight, height, image} = pokemonDB;
+            const pokemonDB = await Pokemon.findOne({where: {id: id}, include: Type});
+
             const response = {
-                name,
-                hp,
-                attack,
-                defense,
-                speed,
-                weight,
-                height,
-                image,
+                id: pokemonDB.id,
+                name: pokemonDB.name,
+                hp: pokemonDB.hp,
+                attack: pokemonDB.attack,
+                defense: pokemonDB.defense,
+                speed: pokemonDB.speed,
+                weight: pokemonDB.weight,
+                height: pokemonDB.height,
+                image: pokemonDB.image,
                 type: pokemonDB.data.types.map( p => p.name)
             }
             return res.json(response);
@@ -142,7 +144,7 @@ router.post('/', async(req, res, next) => {
     try {
         const newPokemon = await Pokemon.create({
             id: uuidv4(),
-            name,
+            name: name.toLowerCase(),
             hp,
             attack,
             defense,
