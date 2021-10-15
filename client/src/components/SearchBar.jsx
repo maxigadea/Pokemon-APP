@@ -7,6 +7,7 @@ import styled from 'styled-components';
 export default function SearchBar() {
     const dispatch = useDispatch()
     const [name, setName] = useState('')
+    console.log(name)
 
     function handleInputName(e){
         e.preventDefault();

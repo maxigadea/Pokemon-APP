@@ -13,8 +13,6 @@ router.use(express.json())
 
 router.get("/", async(req, res, next) => {
     const { name } = req.query;
-    console.log(name)
-    //Verifico si me enviaron algo por query
     if(name) {
         try {
             let pokemonDB = await Pokemon.findAll({ where: {name: name}, include: Type })
@@ -59,9 +57,7 @@ router.get("/", async(req, res, next) => {
         }
     }
     
-    // No me enviaron nada por query //
     try {
-        //Traigo los de la DB
         let pokemonesDB = await Pokemon.findAll( {include: Type} )
         if(pokemonesDB) {
             pokemonesDB.map(p => {
@@ -74,7 +70,6 @@ router.get("/", async(req, res, next) => {
                 }
             })
         }
-        //Traigo los de la API
         const apiUrl = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=40');
         const apiInfo = apiUrl.data.results;
         let pokemonData = [];
@@ -97,9 +92,9 @@ router.get("/", async(req, res, next) => {
 
 router.get('/:id', async(req, res, next) => {
     const {id} = req.params;
-    if(id.length > 10 ) {
+    if(!Number(id)) {
         try {
-            const pokemonDB = await Pokemon.findOne({where: {id: id}, include: Type});
+            const pokemonDB = await Pokemon.findOne({where: { id } , include:{model: Type} });
 
             const response = {
                 id: pokemonDB.id,
