@@ -9,12 +9,14 @@ import Pokebola from '../assets/img/pokebola.png'
  
 const Detail = () => {
     
-    const { myPokemon } = useSelector(state => state.id);
+    const { id } = useParams();
     const dispatch = useDispatch();
 
     useEffect( () => {
-       dispatch(getDetail(myPokemon)) 
-    },[dispatch, myPokemon])
+       dispatch(getDetail(id)) 
+    },[dispatch, id])
+
+    const myPokemon = useSelector( state => state.pokemonsDetail)
 
     return (
         <div>
