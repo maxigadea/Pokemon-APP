@@ -60,7 +60,6 @@ const Home = () => {
             {allPokemons.length <= 0 ? <Loader /> :
             <div>
                 <ContainerDiv>
-                <h1>Find Your Pokemon!</h1>
                 <Link to='/Pokemon'> <Button>Create your Pokemon</Button></Link>
                 <Button onClick={e => handleClick(e)}>Reload Pokemons</Button>
                 </ContainerDiv>
