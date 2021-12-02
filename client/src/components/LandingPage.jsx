@@ -15,9 +15,9 @@ export default function LandingPage() {
 
 const LandingDiv = styled.div`
     background-image: url('https://images4.alphacoders.com/641/641968.jpg');    
-    margin-top: -16px;
     height: 100vh;
     overflow: hidden;
+    background-size: cover;
     background-repeat: no-repeat;
 `;      
 const Title = styled.title`
